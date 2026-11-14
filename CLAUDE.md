@@ -7,6 +7,6 @@
 - O teste `app/teste/novidades.test.mjs` confere ids, tipos e textos.
 
 ## Apresentação da primeira abertura
-- Tour → permissões explicadas → termos a aceitar, em `app/src/Apresentacao.tsx`; conteúdo em `app/src/apresentacao.ts`.
+- Tour → permissões explicadas → termos a aceitar, em `app/src/Onboarding.tsx`; conteúdo em `app/src/apresentacao.ts`.
 - Função nova: acrescente (ou ajuste) um passo em `TOUR`. Permissão nova: explique o porquê na tela de permissões ANTES de pedir. Mudou o texto dos termos: suba `VERSAO_DOS_TERMOS`.
 - A apresentação e os termos também ficam em Ajustes › Sobre o Vetorial Drive.

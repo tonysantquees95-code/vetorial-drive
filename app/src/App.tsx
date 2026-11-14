@@ -3,7 +3,7 @@ import { Drive, ErroDrive, contaSalva, entrar, guardarConta, type Arquivo, type 
 import { nomeLimpo, pastaLimpa, pastaSugerida, tamanho } from "./formato";
 import { precisaApresentar } from "./apresentacao";
 import { lerVisto, novasDesde, NOVIDADES, type Novidade } from "./novidades";
-import { Apresentacao, Novidades, Termos, Tour } from "./Apresentacao";
+import { Apresentacao, Novidades, Termos, Tour } from "./Onboarding";
 import { abrirNoAndroid, baixarNoAndroid, cancelarNoAndroid, noAndroid } from "./nativo";
 
 function Logo({ t = 64 }: { t?: number }) { return <img src="./drive.png" width={t} height={t} alt="" className="rounded-2xl" />; }
