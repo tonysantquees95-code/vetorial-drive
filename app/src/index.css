@@ -1,0 +1,9 @@
+@import "tailwindcss";
+:root { color-scheme: dark; --ciano: #38bdf8; --fundo: #020a14; }
+html, body, #raiz { height: 100%; }
+body { margin: 0; background: radial-gradient(120% 80% at 50% 0%, #07243a 0%, var(--fundo) 60%); color: #e6f4ff; font-family: system-ui, "Segoe UI", sans-serif; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+.cartao { border: 1px solid rgb(125 211 252 / .18); background: rgb(8 28 46 / .7); border-radius: 1rem; }
+.botao { border: 1px solid rgb(125 211 252 / .3); background: rgb(56 189 248 / .1); color: #bae6fd; border-radius: .75rem; padding: .6rem 1rem; font-weight: 700; }
+.botao:disabled { opacity: .5; }
+.botao.forte { background: #38bdf8; color: #02121f; border-color: #38bdf8; }
+.campo { width: 100%; border-radius: .75rem; border: 1px solid rgb(125 211 252 / .25); background: rgb(2 10 20 / .8); padding: .7rem .9rem; color: inherit; font-size: 1rem; }

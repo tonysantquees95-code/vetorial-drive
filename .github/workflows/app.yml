@@ -1,0 +1,104 @@
+name: App (interface e APK)
+
+# Verifica a interface e gera o APK do Android (Capacitor). Cada versão boa vira uma release "1.N" com VetorialDrive.apk.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+        working-directory: app
+      - run: npm run test && npm run typecheck && npm run build
+        working-directory: app
+        env:
+          VITE_BUILD: ${{ github.run_number }}
+
+  android:
+    needs: verificar
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - run: npm install --no-audit --no-fund
+        working-directory: app
+      - name: Preparar o projeto Android
+        working-directory: app
+        run: |
+          npm run build
+          npx cap add android
+          # a versão do app passa a ser a do build (1.<número>), para o Vindex comparar com a última publicada (mesmo padrão dos outros apps)
+          sed -i "s/versionName \"[^\"]*\"/versionName \"1.${{ github.run_number }}\"/; s/versionCode [0-9]*/versionCode ${{ github.run_number }}/" android/app/build.gradle
+          grep -n "versionName\|versionCode" android/app/build.gradle
+          D=android/app/src/main/java/tech/vetorial/drive
+          mkdir -p $D
+          cp ../android/src/*.java $D/
+          # só rede e internet; o download vai para Downloads pelo MediaStore (sem permissão de arquivos)
+          sed -i "s#<application#<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" android:maxSdkVersion=\"28\" />\n    <application#" android/app/src/main/AndroidManifest.xml
+          npx capacitor-assets generate --android --iconBackgroundColor '#020a14' --iconBackgroundColorDark '#020a14' --splashBackgroundColor '#020a14' --splashBackgroundColorDark '#020a14'
+          npx cap sync android
+        env:
+          VITE_BUILD: ${{ github.run_number }}
+      - name: Compilar o APK
+        working-directory: app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+      # A chave de assinatura fica guardada (cifrada) no servidor da Vênus: cada versão instala por cima da anterior.
+      - name: Assinar o APK
+        run: bash .github/assinar-apk.sh app/android/app/build/outputs/apk/debug/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: drive-android
+          path: app/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+  publicar:
+    needs: [android]
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: drive-android
+          path: pacote
+      - name: Publicar a versão
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp pacote/app-debug.apk pacote/VetorialDrive.apk
+          gh release create "1.${{ github.run_number }}" pacote/VetorialDrive.apk --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Vetorial Drive 1.${{ github.run_number }}" --notes "VetorialDrive.apk (Android)."
