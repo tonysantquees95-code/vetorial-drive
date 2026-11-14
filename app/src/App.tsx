@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Drive, ErroDrive, contaSalva, entrar, guardarConta, type Arquivo, type Conta, type Lista } from "./api";
 import { nomeLimpo, pastaLimpa, pastaSugerida, tamanho } from "./formato";
+import { precisaApresentar } from "./apresentacao";
+import { lerVisto, novasDesde, NOVIDADES, type Novidade } from "./novidades";
+import { Apresentacao, Novidades, Termos, Tour } from "./Apresentacao";
 import { abrirNoAndroid, baixarNoAndroid, cancelarNoAndroid, noAndroid } from "./nativo";
 
 function Logo({ t = 64 }: { t?: number }) { return <img src="./drive.png" width={t} height={t} alt="" className="rounded-2xl" />; }
@@ -24,7 +27,7 @@ function Entrada({ aoEntrar }: { aoEntrar: (c: Conta) => void }) {
 
 interface Andamento { acao: "Enviando" | "Baixando"; nome: string; feito: number; total: number }
 
-function Principal({ conta, aoSair }: { conta: Conta; aoSair: () => void }) {
+function Principal({ conta, aoSair, aoSobre }: { conta: Conta; aoSair: () => void; aoSobre: (q: "tour" | "termos" | "novidades") => void }) {
   const drive = useMemo(() => new Drive(conta.token), [conta.token]);
   const [dados, setDados] = useState<Lista | null>(null), [erro, setErro] = useState(""), [aviso, setAviso] = useState("");
   const [and, setAnd] = useState<Andamento | null>(null), [filtro, setFiltro] = useState("tudo"), [busca, setBusca] = useState("");
@@ -141,6 +144,7 @@ function Principal({ conta, aoSair }: { conta: Conta; aoSair: () => void }) {
           </li>
         ))}
       </ul>
+      <footer className="flex flex-wrap justify-center gap-4 pt-2 text-xs text-sky-200/70"><button className="underline" onClick={() => aoSobre("tour")}>Rever a apresentação</button><button className="underline" onClick={() => aoSobre("termos")}>Termos de uso</button><button className="underline" onClick={() => aoSobre("novidades")}>O que há de novo</button></footer>
     </main>
   );
 }
@@ -148,5 +152,13 @@ function Principal({ conta, aoSair }: { conta: Conta; aoSair: () => void }) {
 export function App() {
   const [conta, setConta] = useState<Conta | null>(contaSalva);
   const sair = useCallback(() => { guardarConta(null); setConta(null); }, []);
-  return conta ? <Principal conta={conta} aoSair={sair} /> : <Entrada aoEntrar={(c) => { guardarConta(c); setConta(c); }} />;
+  const [apresentar, setApresentar] = useState(() => precisaApresentar());
+  const [novas, setNovas] = useState<Novidade[]>(() => { const v = lerVisto(); return v === null ? [] : novasDesde(v); });
+  const [sobre, setSobre] = useState<"" | "tour" | "termos" | "novidades">("");
+  if (apresentar) return <Apresentacao aoConcluir={() => { setNovas([]); setApresentar(false); }} />;
+  if (conta && sobre === "tour") return <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "var(--fundo)" }}><div className="mx-auto flex min-h-0 w-full max-w-lg flex-1 flex-col px-5 pb-4 pt-6"><Tour aoTerminar={() => setSobre("")} aoFechar={() => setSobre("")} rotuloFinal="Fechar" /></div></div>;
+  if (conta && sobre === "termos") return <Termos aoFechar={() => setSobre("")} />;
+  if (conta && sobre === "novidades") return <Novidades itens={novasDesde(0, NOVIDADES)} aoFechar={() => setSobre("")} />;
+  if (conta) return <>{novas.length > 0 && <Novidades itens={novas} aoFechar={() => setNovas([])} />}<Principal conta={conta} aoSair={sair} aoSobre={setSobre} /></>;
+  return <Entrada aoEntrar={(c) => { guardarConta(c); setConta(c); }} />;
 }
