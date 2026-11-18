@@ -27,7 +27,7 @@ export function Tour({ aoTerminar, rotuloFinal = "Continuar", aoFechar }: { aoTe
   const ir = (d: number) => setI((x) => Math.max(0, Math.min(TOUR.length - 1, x + d)));
   return (
     <div className="flex min-h-0 flex-1 flex-col" onTouchStart={(e) => { inicio.current = e.touches[0]!.clientX; }} onTouchEnd={(e) => { if (inicio.current === null) return; const dx = e.changedTouches[0]!.clientX - inicio.current; inicio.current = null; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); }}>
-      <div className="flex justify-end">{aoFechar ? <button onClick={aoFechar} aria-label="Fechar" className="text-xl text-sky-200/70">✕</button> : <button onClick={aoTerminar} className="text-sm text-sky-200/70 underline">Pular</button>}</div>
+      <div className="flex justify-end">{aoFechar ? <button onClick={aoFechar} aria-label="Fechar" className="grid min-h-10 min-w-10 place-items-center text-xl text-sky-200/70">✕</button> : <button onClick={aoTerminar} className="min-h-10 px-3 text-sm text-sky-200/70 underline">Pular</button>}</div>
       <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 overflow-y-auto text-center">
         <div className="cartao grid h-24 w-24 place-items-center text-5xl" aria-hidden>{p.icone}</div>
         <h1 className="text-2xl font-black">{p.titulo}</h1>

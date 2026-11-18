@@ -144,7 +144,7 @@ function Principal({ conta, aoSair, aoSobre }: { conta: Conta; aoSair: () => voi
           </li>
         ))}
       </ul>
-      <footer className="flex flex-wrap justify-center gap-4 pt-2 text-xs text-sky-200/70"><button className="underline" onClick={() => aoSobre("tour")}>Rever a apresentação</button><button className="underline" onClick={() => aoSobre("termos")}>Termos de uso</button><button className="underline" onClick={() => aoSobre("novidades")}>O que há de novo</button></footer>
+      <footer className="flex flex-wrap justify-center gap-4 pt-2 text-xs text-sky-200/70"><button className="min-h-10 px-2 underline" onClick={() => aoSobre("tour")}>Rever a apresentação</button><button className="min-h-10 px-2 underline" onClick={() => aoSobre("termos")}>Termos de uso</button><button className="min-h-10 px-2 underline" onClick={() => aoSobre("novidades")}>O que há de novo</button></footer>
     </main>
   );
 }
