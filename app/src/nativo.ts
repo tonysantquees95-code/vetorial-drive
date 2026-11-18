@@ -5,8 +5,12 @@ interface PluginDrive {
   baixar(o: { url: string; token: string; nome: string }): Promise<{ uri: string }>;
   cancelar(): Promise<void>;
   abrir(o: { uri: string; nome: string }): Promise<void>;
+  baixarAtualizacao(o: { url: string; sha256: string; tamanho: number }): Promise<void>;
+  progressoAtualizacao(): Promise<ProgressoAtualizacao>;
+  instalarBaixada(): Promise<void>;
   addListener(ev: "progresso", f: (d: { feito: number; total: number }) => void): Promise<{ remove(): Promise<void> }>;
 }
+export interface ProgressoAtualizacao { estado: "parada" | "baixando" | "pronta" | "erro"; feitos: number; total: number; erro: string }
 const Nativo = registerPlugin<PluginDrive>("VetorialDrive");
 export const noAndroid = () => Capacitor.getPlatform() === "android";
 
@@ -18,3 +22,8 @@ export async function baixarNoAndroid(token: string, a: Arquivo, p: Progresso): 
 }
 export const cancelarNoAndroid = () => Nativo.cancelar();
 export const abrirNoAndroid = (uri: string, nome: string) => Nativo.abrir({ uri, nome });
+
+// Atualização do próprio app, igual à Vênus: baixa com barra de andamento e a pessoa toca para instalar.
+export const baixarAtualizacao = (url: string, sha256: string, tamanho: number) => Nativo.baixarAtualizacao({ url, sha256, tamanho });
+export const progressoAtualizacao = () => Nativo.progressoAtualizacao();
+export const instalarBaixada = () => Nativo.instalarBaixada();

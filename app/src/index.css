@@ -1,9 +1,36 @@
 @import "tailwindcss";
-:root { color-scheme: dark; --ciano: #38bdf8; --fundo: #020a14; }
-html, body, #raiz { height: 100%; }
-body { margin: 0; background: radial-gradient(120% 80% at 50% 0%, #07243a 0%, var(--fundo) 60%); color: #e6f4ff; font-family: system-ui, "Segoe UI", sans-serif; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
-.cartao { border: 1px solid rgb(125 211 252 / .18); background: rgb(8 28 46 / .7); border-radius: 1rem; }
-.botao { border: 1px solid rgb(125 211 252 / .3); background: rgb(56 189 248 / .1); color: #bae6fd; border-radius: .75rem; padding: .6rem 1rem; font-weight: 700; }
-.botao:disabled { opacity: .5; }
-.botao.forte { background: #38bdf8; color: #02121f; border-color: #38bdf8; }
-.campo { min-width: 0; width: 100%; border-radius: .75rem; border: 1px solid rgb(125 211 252 / .25); background: rgb(2 10 20 / .8); padding: .7rem .9rem; color: inherit; font-size: 1rem; }
+@theme {
+  --color-fundo: #05030b;
+  --color-painel: #0c0918;
+  --color-borda: #221b38;
+  --color-texto: #e9e6f5;
+  --color-suave: #9a93b8;
+  --color-neon: #60a5fa;
+  --color-magenta: #a78bfa;
+  --color-ok: #34d399;
+  --color-aviso: #fbbf24;
+  --color-erro: #f87171;
+}
+html, body, #raiz { min-height: 100dvh; }
+body { margin: 0; background: #05030b; color: var(--color-texto); font-family: system-ui, "Segoe UI", sans-serif; }
+.num { font-variant-numeric: tabular-nums; }
+.brilho { box-shadow: 0 0 24px -6px var(--color-neon); }
+button { cursor: pointer; }
+input, select, textarea { color: inherit; font: inherit; }
+input::placeholder, textarea::placeholder { color: var(--color-suave); opacity: .7; }
+.rolagem { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+/* campo de texto no visual do app */
+.campo { min-width: 0; width: 100%; min-height: 2.75rem; border-radius: var(--raio-botao, .75rem); border: 1px solid var(--color-borda); background: rgb(255 255 255 / .04); padding: .55rem .9rem; font-size: 1rem; }
+.campo:focus { outline: 2px solid color-mix(in srgb, var(--color-neon) 70%, transparent); outline-offset: 1px; }
+
+/* estilo dos botões principais, escolhido em Ajustes › Personalizar */
+html[data-botoes="degrade"] .btn-primario { background: linear-gradient(135deg, var(--color-neon), var(--color-magenta)); color: var(--color-fundo); }
+html[data-botoes="contorno"] .btn-primario { background: transparent; color: var(--color-neon); border: 1.5px solid var(--color-neon); }
+html[data-botoes="contorno"] .btn-primario:hover { background: color-mix(in srgb, var(--color-neon) 14%, transparent); }
+
+/* a logo respira devagar, como o orbe da Vênus */
+.logo-vivo { animation: vivo 4.8s ease-in-out infinite; filter: drop-shadow(0 0 12px color-mix(in srgb, var(--color-neon) 45%, transparent)); }
+@keyframes vivo { 0%, 100% { transform: scale(0.97); } 50% { transform: scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .logo-vivo { animation: none; } }
+.barra-feita { transition: width .25s ease; }

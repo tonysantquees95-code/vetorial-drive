@@ -1,23 +1,27 @@
+import type { NomeIcone } from "./icones";
 // Primeira abertura: conhecer as funções, entender o que o app usa do aparelho e aceitar os termos.
 // Mudou o texto dos termos: suba VERSAO_DOS_TERMOS e a pessoa aceita de novo.
 export const VERSAO_DOS_TERMOS = 1;
 const CHAVE_TERMOS = "drive.termos";
 const CHAVE_TOUR = "drive.tour";
 
-export interface PassoDoTour { icone: string; titulo: string; texto: string; como?: string[] }
+export interface PassoDoTour { icone: NomeIcone; titulo: string; texto: string; como?: string[] }
 
 export const TOUR: PassoDoTour[] = [
-  { icone: "☁️", titulo: "Bem-vindo ao Vetorial Drive", texto: "Seus documentos e ROMs na nuvem, disponíveis nos apps da Vetorial Tech.", como: ["Passe as telas para conhecer as funções.", "Você pode rever esta apresentação no fim da tela inicial."] },
-  { icone: "⬆️", titulo: "Enviar arquivos", texto: "Escolha arquivos do aparelho e envie para a sua nuvem, na pasta que quiser.", como: ["Toque em Enviar e escolha o arquivo.", "O app sugere a pasta certa (por exemplo, a do console de uma ROM)."] },
-  { icone: "⬇️", titulo: "Baixar e abrir", texto: "Baixe qualquer arquivo de volta ao aparelho e abra com o app que preferir.", como: ["O andamento aparece na tela e dá para cancelar."] },
-  { icone: "🎮", titulo: "Junto com o Vortex", texto: "O Vortex usa estes mesmos arquivos: o que você guarda aqui aparece lá.", como: ["O espaço usado e o limite por arquivo ficam sempre à vista."] },
-  { icone: "🔒", titulo: "Só você vê", texto: "Os arquivos ficam ligados ao seu Vetorial ID. Ninguém mais tem acesso ao que está aqui." },
+  { icone: "nuvem", titulo: "Bem-vindo ao Vetorial Drive", texto: "Seus documentos e ROMs na nuvem, disponíveis nos apps da Vetorial Tech.", como: ["Passe as telas para conhecer as funções.", "Você pode rever esta apresentação em Ajustes › Sobre o Vetorial Drive."] },
+  { icone: "enviar", titulo: "Enviar arquivos", texto: "Escolha arquivos do aparelho e envie para a sua nuvem, na pasta que quiser.", como: ["Abra a aba Enviar e escolha o arquivo.", "O app sugere a pasta certa (por exemplo, a do console de uma ROM)."] },
+  { icone: "baixar", titulo: "Baixar e abrir", texto: "Baixe qualquer arquivo de volta ao aparelho e abra com o app que preferir.", como: ["O andamento aparece na tela e dá para cancelar."] },
+  { icone: "jogo", titulo: "Junto com o Vortex", texto: "O Vortex usa estes mesmos arquivos: o que você guarda aqui aparece lá.", como: ["O espaço usado e o limite por arquivo ficam sempre à vista."] },
+  { icone: "paleta", titulo: "Do seu jeito", texto: "Em Ajustes › Personalizar você muda a cor, o formato dos botões e o estilo dos ícones, igual aos outros apps da Vetorial." },
+  { icone: "atualizar", titulo: "Sempre atualizado", texto: "O Drive avisa quando há versão nova, baixa com a barra de andamento e você toca para instalar.", como: ["Em Ajustes dá para ligar o “Atualizar sozinho”."] },
+  { icone: "cadeado", titulo: "Só você vê", texto: "Os arquivos ficam ligados ao seu Vetorial ID. Ninguém mais tem acesso ao que está aqui." },
 ];
 
-export const PERMISSOES: { icone: string; titulo: string; texto: string }[] = [
-  { icone: "🌐", titulo: "Internet", texto: "Para enviar e baixar os arquivos da sua nuvem. O Android libera sozinho." },
-  { icone: "📁", titulo: "Escolher arquivos", texto: "Quando você toca em Enviar, o Android abre o seletor de arquivos. O Drive só enxerga o arquivo que você escolher: ele não vasculha o aparelho." },
-  { icone: "⬇️", titulo: "Salvar e abrir downloads", texto: "Os arquivos baixados vão para a pasta de Downloads do aparelho e abrem no app que você escolher." },
+export const PERMISSOES: { icone: NomeIcone; titulo: string; texto: string }[] = [
+  { icone: "nuvem", titulo: "Internet", texto: "Para enviar e baixar os arquivos da sua nuvem. O Android libera sozinho." },
+  { icone: "arquivos", titulo: "Escolher arquivos", texto: "Quando você toca em Enviar, o Android abre o seletor de arquivos. O Drive só enxerga o arquivo que você escolher: ele não vasculha o aparelho." },
+  { icone: "baixar", titulo: "Salvar e abrir downloads", texto: "Os arquivos baixados vão para a pasta de Downloads do aparelho e abrem no app que você escolher." },
+  { icone: "atualizar", titulo: "Instalar a atualização do Drive", texto: "Só quando você baixar uma versão nova, o Android pede para liberar “Instalar apps desconhecidos” para o Drive. Serve apenas para atualizar o próprio Drive, e a instalação sempre depende do seu toque." },
 ];
 
 export const TERMOS: { titulo: string; texto: string }[] = [

@@ -75,9 +75,13 @@ jobs:
           D=android/app/src/main/java/tech/vetorial/drive
           mkdir -p $D
           cp ../android/src/*.java $D/
-          # só rede e internet; o download vai para Downloads pelo MediaStore (sem permissão de arquivos)
-          sed -i "s#<application#<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" android:maxSdkVersion=\"28\" />\n    <application#" android/app/src/main/AndroidManifest.xml
-          npx capacitor-assets generate --android --iconBackgroundColor '#020a14' --iconBackgroundColorDark '#020a14' --splashBackgroundColor '#020a14' --splashBackgroundColorDark '#020a14'
+          # rede, download em Downloads pelo MediaStore (sem permissão de arquivos) e instalar a própria atualização
+          sed -i "s#<application#<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" android:maxSdkVersion=\"28\" />\n    <uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\" />\n    <application#" android/app/src/main/AndroidManifest.xml
+          # instalar a atualização baixada: o Capacitor já declara o FileProvider ".fileprovider"; aqui liberamos a pasta de cache
+          grep -q 'fileprovider' android/app/src/main/AndroidManifest.xml
+          mkdir -p android/app/src/main/res/xml
+          printf '%s\n' '<?xml version="1.0" encoding="utf-8"?>' '<paths xmlns:android="http://schemas.android.com/apk/res/android">' '    <cache-path name="cache" path="." />' '    <files-path name="arquivos" path="." />' '</paths>' > android/app/src/main/res/xml/file_paths.xml
+          npx capacitor-assets generate --android --iconBackgroundColor '#05030b' --iconBackgroundColorDark '#05030b' --splashBackgroundColor '#05030b' --splashBackgroundColorDark '#05030b'
           npx cap sync android
         env:
           VITE_BUILD: ${{ github.run_number }}

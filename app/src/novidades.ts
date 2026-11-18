@@ -8,6 +8,8 @@ export const NOVIDADES: Novidade[] = [
   { id: 1, data: "2026-11-14", tipo: "novo", titulo: "Apresentação e novidades", texto: "Na primeira abertura o Drive mostra o que faz, explica o que usa do aparelho e pede o aceite dos termos. Depois de cada atualização, esta tela conta o que mudou." },
   { id: 2, data: "2026-11-18", tipo: "correcao", titulo: "Nomes de arquivo compridos", texto: "Arquivos com nome muito grande não empurram mais a tela para o lado no celular: o nome aparece cortado com reticências e os botões continuam no lugar. A tela de novidades também rola quando precisa." },
   { id: 3, data: "2026-11-18", tipo: "melhoria", titulo: "Botões mais fáceis de tocar", texto: "Os botões de fechar, pular e ver mais ficaram maiores, para acertar com o dedo sem errar." },
+  { id: 4, data: "2026-11-18", tipo: "melhoria", titulo: "Drive com a cara da Vetorial", texto: "O Drive ficou mais bonito e moderno: abas Arquivos, Enviar e Ajustes, ícone por tipo de arquivo, anel com o espaço usado e botões grandes para tocar com uma mão. Ganhou ícone novo, uma nuvem com o V da marca." },
+  { id: 5, data: "2026-11-18", tipo: "novo", titulo: "Personalizar e atualizar", texto: "Em Ajustes você escolhe a cor, o formato dos botões e o estilo dos ícones, como nos outros apps. O Drive também avisa quando há versão nova, baixa com a barra de andamento e você toca para instalar." },
 ];
 
 export const ROTULO: Record<TipoNovidade, string> = { novo: "Novo", melhoria: "Melhorou", correcao: "Corrigido" };
