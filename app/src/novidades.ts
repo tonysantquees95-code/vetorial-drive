@@ -7,6 +7,7 @@ export interface Novidade { id: number; data: string; tipo: TipoNovidade; titulo
 export const NOVIDADES: Novidade[] = [
   { id: 1, data: "2026-11-14", tipo: "novo", titulo: "Apresentação e novidades", texto: "Na primeira abertura o Drive mostra o que faz, explica o que usa do aparelho e pede o aceite dos termos. Depois de cada atualização, esta tela conta o que mudou." },
   { id: 2, data: "2026-11-18", tipo: "correcao", titulo: "Nomes de arquivo compridos", texto: "Arquivos com nome muito grande não empurram mais a tela para o lado no celular: o nome aparece cortado com reticências e os botões continuam no lugar. A tela de novidades também rola quando precisa." },
+  { id: 3, data: "2026-11-18", tipo: "melhoria", titulo: "Botões mais fáceis de tocar", texto: "Os botões de fechar, pular e ver mais ficaram maiores, para acertar com o dedo sem errar." },
 ];
 
 export const ROTULO: Record<TipoNovidade, string> = { novo: "Novo", melhoria: "Melhorou", correcao: "Corrigido" };
