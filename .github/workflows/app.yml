@@ -35,7 +35,6 @@ jobs:
         working-directory: app
         env:
           CHROME: C:/Program Files/Google/Chrome/Application/chrome.exe
-        continue-on-error: true # só avisa por enquanto: ainda há telas a corrigir (veja o relatório)
       - name: Guardar as fotos das telas
         if: always()
         uses: actions/upload-artifact@v4

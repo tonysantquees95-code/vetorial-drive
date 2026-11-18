@@ -86,7 +86,7 @@ function Principal({ conta, aoSair, aoSobre }: { conta: Conta; aoSair: () => voi
   const cancelar = () => { parar.current?.abort(); if (noAndroid()) void cancelarNoAndroid(); };
 
   return (
-    <main className="mx-auto grid max-w-3xl gap-4 px-4 pb-16 pt-4">
+    <main className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)] gap-4 px-4 pb-16 pt-4">
       <header className="flex items-center gap-3">
         <Logo t={44} />
         <div className="min-w-0 flex-1"><h1 className="text-xl font-black leading-tight">Vetorial Drive</h1><p className="truncate text-xs text-sky-200/70">{conta.email}</p></div>
@@ -101,10 +101,10 @@ function Principal({ conta, aoSair, aoSobre }: { conta: Conta; aoSair: () => voi
         </section>
       )}
 
-      <section className="cartao grid gap-3 p-4">
+      <section className="cartao grid grid-cols-[minmax(0,1fr)] gap-3 p-4">
         <div className="flex flex-wrap items-center gap-2">
           <label className="text-sm text-sky-100/80" htmlFor="destino">Enviar para</label>
-          <select id="destino" className="campo !w-auto flex-1" value={destino} onChange={(e) => setDestino(e.target.value)}>
+          <select id="destino" className="campo !w-auto min-w-0 max-w-full flex-[1_1_12rem]" value={destino} onChange={(e) => setDestino(e.target.value)}>
             <option value="auto">Automático (documentos ou ROMs)</option>
             <option value="documentos">documentos</option>
             {pastas.filter((p) => p !== "documentos").map((p) => <option key={p} value={p}>{p}</option>)}
@@ -113,7 +113,7 @@ function Principal({ conta, aoSair, aoSobre }: { conta: Conta; aoSair: () => voi
         </div>
         {destino === "outra" && <input className="campo" placeholder="nome da pasta (ex.: fotos ou roms/gba)" value={outra} onChange={(e) => setOutra(e.target.value)} />}
         <input ref={entradaArq} type="file" multiple hidden onChange={(e) => void enviar(e.target.files)} />
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button className="botao forte flex-1" disabled={!!and} onClick={() => entradaArq.current?.click()}>Enviar arquivos</button>
           {and && <button className="botao" onClick={cancelar}>Cancelar</button>}
           <button className="botao" disabled={!!and} onClick={() => void carregar()}>Atualizar</button>
@@ -136,9 +136,9 @@ function Principal({ conta, aoSair, aoSobre }: { conta: Conta; aoSair: () => voi
       <input className="campo" type="search" placeholder="Buscar pelo nome" value={busca} onChange={(e) => setBusca(e.target.value)} />
 
       {dados && !visiveis.length && !erro && <p className="text-sm text-sky-200/70">{dados.arquivos.length ? "Nada com esse filtro." : "Nada por aqui ainda. Envie documentos ou ROMs e use em qualquer aparelho com a sua conta."}</p>}
-      <ul className="grid gap-2">
+      <ul className="grid grid-cols-[minmax(0,1fr)] gap-2">
         {visiveis.map((a) => (
-          <li key={a.pasta + "/" + a.nome} className="cartao flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+          <li key={a.pasta + "/" + a.nome} className="cartao min-w-0 flex flex-wrap items-center justify-between gap-2 px-4 py-3">
             <div className="min-w-0 flex-1"><div className="truncate font-semibold">{a.nome}</div><div className="text-xs text-sky-200/60">{a.pasta} · {tamanho(a.bytes)}{a.atualizado ? " · " + new Date(a.atualizado).toLocaleDateString("pt-BR") : ""}</div></div>
             <div className="flex gap-2"><button className="botao !py-1.5" disabled={!!and} onClick={() => void baixar(a)}>Baixar</button><button className="botao !py-1.5" disabled={!!and} onClick={() => void apagar(a)}>Apagar</button></div>
           </li>
