@@ -10,3 +10,7 @@
 - Tour → permissões explicadas → termos a aceitar, em `app/src/Onboarding.tsx`; conteúdo em `app/src/apresentacao.ts`.
 - Função nova: acrescente (ou ajuste) um passo em `TOUR`. Permissão nova: explique o porquê na tela de permissões ANTES de pedir. Mudou o texto dos termos: suba `VERSAO_DOS_TERMOS`.
 - A apresentação e os termos também ficam em Ajustes › Sobre o Vetorial Drive.
+
+## Teste visual das telas
+- `app/teste-visual/telas.mjs` (motor) + `config.mjs` (telas a visitar) — `npm run build && npm run test:visual` abre o app em 7 tamanhos (celular pequeno até janela do Windows) e confere se cada tela e janela cabe, não estoura para o lado e se todo botão dá para alcançar. Roda na publicação e guarda as fotos como artefato `fotos-das-telas`.
+- Tela ou janela nova: acrescente um cenário em `config.mjs`.
