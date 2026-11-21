@@ -9,6 +9,7 @@ import { noAndroid } from "./nativo";
 import { lerVisto, novasDesde, NOVIDADES, type Novidade } from "./novidades";
 import { Apresentacao, Novidades, Termos, TourAberto } from "./Onboarding";
 import { Ajustes, type Sobre } from "./telas/Ajustes";
+import { FeedbackDoApp } from "./telas/FeedbackDoApp";
 import { Arquivos } from "./telas/Arquivos";
 import { Entrada } from "./telas/Entrada";
 import { Enviar } from "./telas/Enviar";
@@ -97,6 +98,7 @@ export function App() {
   if (apresentar) return <Apresentacao aoConcluir={() => { setNovas([]); setApresentar(false); }} />;
   if (conta && sobre === "tour") return <TourAberto aoFechar={() => setSobre("")} />;
   if (conta && sobre === "termos") return <Termos aoFechar={() => setSobre("")} />;
+  if (conta && sobre === "feedback") return <FeedbackDoApp aoFechar={() => setSobre("")} />;
   if (conta && sobre === "novidades") return <Novidades itens={novasDesde(0, NOVIDADES)} aoFechar={() => setSobre("")} />;
   if (conta) return <>{novas.length > 0 && <Novidades itens={novas} aoFechar={() => setNovas([])} />}<Principal conta={conta} aoSair={sair} aoSobre={setSobre} nova={nova} aoAchar={setNova} /></>;
   return <Entrada aoEntrar={(c) => { guardarConta(c); setConta(c); }} />;

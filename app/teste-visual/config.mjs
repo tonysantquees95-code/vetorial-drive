@@ -30,6 +30,7 @@ export default {
     ["personalizar", "normal", async (p, ajuda) => { await p.getByText("Zelda.gba").waitFor(); await ajuda.aba(p, "Ajustes"); await p.getByRole("tab", { name: "Personalizar" }).click(); await p.getByText("Cor do app").waitFor(); }],
     ["personalizar-minha-cor", "normal", async (p, ajuda) => { await p.getByText("Zelda.gba").waitFor(); await ajuda.aba(p, "Ajustes"); await p.getByRole("tab", { name: "Personalizar" }).click(); await p.getByRole("button", { name: "Minha cor" }).click(); await p.getByLabel("Código da cor").waitFor(); }],
     ["sobre-apresentacao", "normal", async (p, ajuda) => { await p.getByText("Zelda.gba").waitFor(); await ajuda.aba(p, "Ajustes"); await p.getByRole("button", { name: "Rever a apresentação" }).click(); await p.waitForTimeout(300); }],
+    ["sobre-feedback", "normal", async (p, ajuda) => { await p.getByText("Zelda.gba").waitFor(); await ajuda.aba(p, "Ajustes"); await p.getByRole("button", { name: "Enviar feedback" }).click(); await p.getByText(/^FEEDBACK/).waitFor(); await p.waitForTimeout(300); }],
     ["sobre-termos", "normal", async (p, ajuda) => { await p.getByText("Zelda.gba").waitFor(); await ajuda.aba(p, "Ajustes"); await p.getByRole("button", { name: /Termos/ }).click(); await p.waitForTimeout(300); }],
     ["sobre-novidades", "normal", async (p, ajuda) => { await p.getByText("Zelda.gba").waitFor(); await ajuda.aba(p, "Ajustes"); await p.getByRole("button", { name: /O que há de novo/ }).click(); await p.getByRole("button", { name: "Entendi" }).waitFor(); }],
   ],

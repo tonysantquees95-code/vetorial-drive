@@ -10,6 +10,7 @@ export const NOVIDADES: Novidade[] = [
   { id: 3, data: "2026-11-18", tipo: "melhoria", titulo: "Botões mais fáceis de tocar", texto: "Os botões de fechar, pular e ver mais ficaram maiores, para acertar com o dedo sem errar." },
   { id: 4, data: "2026-11-18", tipo: "melhoria", titulo: "Drive com a cara da Vetorial", texto: "O Drive ficou mais bonito e moderno: abas Arquivos, Enviar e Ajustes, ícone por tipo de arquivo, anel com o espaço usado e botões grandes para tocar com uma mão. Ganhou ícone novo, uma nuvem com o V da marca." },
   { id: 5, data: "2026-11-18", tipo: "novo", titulo: "Personalizar e atualizar", texto: "Em Ajustes você escolhe a cor, o formato dos botões e o estilo dos ícones, como nos outros apps. O Drive também avisa quando há versão nova, baixa com a barra de andamento e você toca para instalar." },
+  { id: 6, data: "2026-11-21", tipo: "novo", titulo: "Feedback e relato de erros", texto: "Em Ajustes › Sobre o Vetorial Drive você encontra Enviar feedback e Reportar um erro: conte o que achou, avise quando algo não funcionou e responda uma pesquisa rápida de 1 minuto. O Vetorial Drive está em fase de testes (beta) e cada relato ajuda a melhorar." },
 ];
 
 export const ROTULO: Record<TipoNovidade, string> = { novo: "Novo", melhoria: "Melhorou", correcao: "Corrigido" };

@@ -8,7 +8,7 @@ import { noAndroid } from "../nativo";
 import { useAjustes } from "../usarAjustes";
 import { Aviso, Botao, Cartao, Interruptor } from "../ui";
 
-export type Sobre = "tour" | "termos" | "novidades";
+export type Sobre = "tour" | "termos" | "novidades" | "feedback";
 
 export function Ajustes({ conta, aoSair, aoSobre, nova, aoAchar }: { conta: Conta; aoSair: () => void; aoSobre: (q: Sobre) => void; nova: InfoVersao | null; aoAchar: (v: InfoVersao | null) => void }) {
   const [a, definir] = useAjustes();
@@ -112,6 +112,8 @@ export function Ajustes({ conta, aoSair, aoSobre, nova, aoAchar }: { conta: Cont
             <Botao onClick={() => aoSobre("tour")}><Icone nome="info" tam={18} />Rever a apresentação</Botao>
             <Botao onClick={() => aoSobre("termos")}><Icone nome="escudo" tam={18} />Termos de uso</Botao>
             <Botao onClick={() => aoSobre("novidades")}><Icone nome="livro" tam={18} />O que há de novo</Botao>
+            <Botao onClick={() => aoSobre("feedback")}><Icone nome="info" tam={18} />Enviar feedback</Botao>
+            <Botao onClick={() => aoSobre("feedback")}><Icone nome="info" tam={18} />Reportar um erro</Botao>
           </div>
         </Cartao>
       </>}
